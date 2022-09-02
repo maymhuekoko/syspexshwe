@@ -26,10 +26,8 @@ Route::get('/pusher', function(){
 	event(new DoctorChange('Hey how are you'));
 });
 
-// Route::get('/', 'Web\FrontendController@index')->name('frontend.home');
 
 Route::get('/', 'Web\LoginController@index')->name('login_page');
-// Route::get('/', 'Web\LoginController@index')->name('login_page');
 
 Route::post('LoginProcess', 'Web\LoginController@LoginProcess')->name('user_login');
 
@@ -57,21 +55,15 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::get('add_asset', 'TenderGeneralController@add_asset')->name('add_asset');
 
 	Route::get('AccountList', 'Web\OperatorController@ShowAccountList')->name('account_list');
-    // Route::get('profit_loss_acc_list', 'Web\OperatorController@profit_loss_acc_list')->name('profit_loss_acc_list');
-    // Route::get('balancesheet_acc_list', 'Web\OperatorController@balancesheet_acc_list')->name('balancesheet_acc_list');
-    // Route::get('trial_balance', 'Web\OperatorController@trial_balance')->name('trial_balance');
+
 	Route::get('projectList', 'TenderGeneralController@show_account_list')->name('project_list');
-	// Route::get('create-project', 'TenderGeneralController@create_project')->name('create_project');
+
 	Route::get('customer-list', 'TenderGeneralController@show_customer_list')->name('customer_list');
 	Route::post('store-customer','TenderGeneralController@storeCustomer')->name('store_customer');
 	Route::post('check_project_type','TenderGeneralController@check_projectType')->name('check_project_type');
-	// Route::get('show_project','TenderGeneralController@show_projectsale')->name('show_project');
-	// Route::post('store_sale_project','TenderGeneralController@store_sale_project')->name('store_sale_project');
-	Route::post('store_accounting','TenderGeneralController@store_accounting_account')->name('store_accounting');
-	// Route::get('create-product', 'TenderGeneralController@createProduct')->name('create-product');
 
-	// Route::get('product_list', 'TenderGeneralController@product_list')->name('product_list');
-	// Route::post('add_item','TenderGeneralController@add_item_product')->name('add_item');
+	Route::post('store_accounting','TenderGeneralController@store_accounting_account')->name('store_accounting');
+
     Route::get('cost_center', 'TenderGeneralController@cost_center')->name('cost_center');
     Route::get('currency', 'TenderGeneralController@currency')->name('currency');
     Route::post('store_currency', 'TenderGeneralController@store_currency')->name('store_currency');
@@ -182,7 +174,6 @@ Route::group(['middleware' => ['UserAuth']], function () {
 	//Announcement & Advertisement
 
 
-
 	Route::get('Announcement', 'Web\OperatorController@announcementIndex')->name('announcement.index');
 
 	Route::post('Advertisement_Store', 'Web\OperatorController@advertiesmentStore')->name('advertisement_store');
@@ -222,73 +213,36 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	Route::get('ScheduleList', 'Web\ScheduleController@ScheduleList')->name('schedule_list');
 
-
-
-
-
-
 	Route::post('StoreScheduleDay', 'Web\ScheduleController@StoreScheduleDay')->name('store_schedule_day');
-
-
 	Route::post('StoreDoctorTime', 'Web\ScheduleController@StoreDoctorTime')->name('store_doctor_time');
 
 	//Operator Controller
-
-
-
-
 	Route::get('AdminBookingList', 'Web\OperatorController@getBookingListUi')->name('admin_booking_list');
-
 	Route::post('DoctorBookingList', 'Web\OperatorController@ajaxDoctorBookingList')->name('ajax_doc_booking_list');
-
 	Route::get('TokenCheckInUI', 'Web\OperatorController@getTokencheckinUI')->name('token_checkin');
-
-
-
 	Route::post('AjaxTokenCheckIn', 'Web\OperatorController@ajaxTokenCheckIn');
-
-
-
 	Route::get('AdminProfile', 'Web\OperatorController@AdminProfile')->name('admin_profile');
 
-
-
 	Route::get('CounterProfileEdit/{admin_id}', 'Web\OperatorController@counterProfileEdit')->name('counter_profile_edit');
-
 	Route::post('CounterProfileEdit', 'Web\OperatorController@counterProfileEditSave')->name('counter_profile_edit_save');
-
-	Route::get('CreateCounter', 'Web\OperatorController@createCounter')->name('create_counter');
 
 	Route::post('CreateCounter/save', 'Web\OperatorController@createCounterSave')->name('create_counter_save');
 
-
-
 	Route::get('ChangeAdminPasswordUI', 'Web\OperatorController@AdminChangePassUI')->name('change_admin_pw_ui');
-
 	Route::put('ChangeAdminPassword', 'Web\OperatorController@AdminChangePass')->name('change_admin_pw');
-
 	Route::get('DepartmentList', 'Web\OperatorController@DepartmentList')->name('department_list');
-
 	Route::get('CreateDepartment', 'Web\OperatorController@CreateDepartment')->name('create_department');
-
 	Route::post('StoreDepartment', 'Web\OperatorController@StoreDepartment')->name('store_department');
-
 	Route::get('EditDepartment/{department}', 'Web\OperatorController@EditDepartment')->name('edit_department');
-
 	Route::put('UpdateDepartment/{department}', 'Web\OperatorController@UpdateDepartment')->name('update_department');
-
 	Route::get('GetToken', 'Web\OperatorController@GetToken')->name('get_token');
-
 	Route::post('SearchDoctors', 'Web\OperatorController@SearchDoctors');
-
 	Route::post('StoreBookingToken', 'Web\OperatorController@StoreBookingToken')->name('store_booking_token');
 
-	// Route::post('EditBookingRecord', 'Web\OperatorController@editBookingRecord')->name('edit_booking_record');
 
 	Route::post('AdminConfirmBooking', 'Web\OperatorController@adminconfirmbooking')->name('admin_confirm_booking');
 
 	Route::post('AdminCheckInBooking', 'Web\OperatorController@admincheckinbooking')->name('admin_checkin_booking');
-
 
 	Route::post('checkedAllConfirm', 'Web\OperatorController@checkedallconfirm')->name('checkedAllConfirm');
 
@@ -303,6 +257,10 @@ Route::group(['middleware' => ['UserAuth']], function () {
 	Route::post('AjaxSearchTown', 'Web\OperatorController@ajaxSearchTown');
 
 	Route::post('EditTown', 'Web\OperatorController@editTown')->name('edit_town');
+
+	//DoctorController
+
+	Route::get('DoctorList', 'Web\DoctorController@DoctorList')->name('doctor_list');
 
 
 
@@ -403,50 +361,50 @@ Route::post('packages/delete','Web\PackageController@packageDelete')->name('pack
 
 		Route::get('Order/Voucher-Details/{id}', 'Web\OrderController@getVoucherDetails')->name('voucher_order_details');
 
-Route::group(['middleware' => ['UserAuth']], function () {
+
+	//DOCTOR DASHBORAD
 
 
+//Clinic
+	Route::get('patient/register', 'Web\ClinicController@patientregister')->name('patientregister');
+	Route::post('appointment/store', 'Web\ClinicController@appointmentStore')->name('appointmentstore');
+	Route::post('searchpatient', 'Web\ClinicController@searchpatient');
+	Route::post('oldpatient/appointment', 'Web\ClinicController@oldpatientAppointment')->name('appointment.oldpatient');
+	Route::get('appointments/{patient_id}', 'Web\ClinicController@appointments')->name('appointments');
 
-	//doctor admin
-	Route::post('EditBookingRecord', 'Web\OperatorController@editBookingRecord')->name('edit_booking_record');
-	Route::get('CheckDoctorProfile/{doctor}', 'Web\DoctorController@CheckDoctorProfile')->name('check_doctor_profile');
-	Route::get('CheckScheduleTime/{day}/{doctor}', 'Web\ScheduleController@CheckScheduleTime')->name('check_schedule_time');
+	//today appointments
+	Route::get('appointments', 'Web\ClinicController@todayAppointments')->name('today.appointments');
+	Route::post('searchpatient/todayappointments', 'Web\ClinicController@searchpatientToday');
+	Route::post('appointments/delete', 'Web\ClinicController@todayaptdelete')->name('todayaptdelete');
 
-	Route::get('ChangeScheduleList', 'Web\ScheduleController@ChangeScheduleList')->name('change_sch_list');
-
-
-	Route::post('StoreChangeScheduleList', 'Web\ScheduleController@storeChangeScheduleList')->name('store_change_schedule');
-
-	//
-
-	Route::post('DoctorDoneBooking', 'Web\DoctorDashboardController@doctordonebooking')->name('doctor_done_booking');
-
-	Route::get('DoctorScheduleList', 'Web\DoctorDashboardController@DoctorScheduleList')->name('doctor.schedulelist');
-
-	Route::get('doctor/dashboard', 'Web\DoctorDashboardController@doctorDashboard')->name('doctor.dashboard');
-
-	Route::get('doctor/profile', 'Web\DoctorDashboardController@doctorProfile')->name('doc.profile');
-
-	Route::get('doctor/manualbookinglists', 'Web\DoctorDashboardController@manualbookingLists')->name('doctor.manualbookings');
-
-	Route::get('doctor/onlinebookinglists', 'Web\DoctorDashboardController@onlinebookingLists')->name('doctor.onlinebookings');
-
-	Route::get('doctor/patientHistory', 'Web\DoctorDashboardController@patientHistory')->name('doctor.patientHistory');
-	Route::post('ajax/patientHistory', 'Web\DoctorDashboardController@ajaxPatientHistory')->name('ajaxPatientHistory');
+	Route::post('searchAppointments/filter', 'Web\ClinicController@searchAppointments');
 
 
-	Route::post('doctor/ajax/manual/bookinglists', 'Web\DoctorDashboardController@ajaxDoctorManualBookingList')->name('ajax_doc_manual_bookings');
+	Route::get('records/{appointment_id}', 'Web\ClinicController@appointmentRecord')->name('appointmentRecord');
+	Route::get('patient/history/{appointment_id}', 'Web\ClinicController@patientHistory')->name('patienthist');
+	Route::post('store/record', 'Web\ClinicController@storeRecord')->name('storeRecord');
+	Route::post('store/recordinfo', 'Web\ClinicController@storeRecordInfo')->name('storeRecordInfo');
+	Route::post('attachments/store', 'Web\ClinicController@attachmentsStore')->name('attachments.store');
 
-	Route::post('doctor/ajax/online/bookinglists', 'Web\DoctorDashboardController@ajaxDoctorOnlineBookingList')->name('ajax_doc_online_bookings');
+	Route::post('attachments/delete', 'Web\ClinicController@attachmentsDelete')->name('attachments.delete');
+	Route::post('addservices', 'Web\ClinicController@addserviceCounter')->name('addserviceCounter');
 
-	Route::post('doctor/startzoom', 'Web\DoctorDashboardController@startzoom')->name('startzoom');
+	//clinic history
+	Route::get('clinichistory', 'Web\ClinicController@history')->name('history');
 
-	Route::get('payment/payment4', 'Web\PaymentTestController@payment4')->name('payment4');
+	Route::post('clinic/storevoucher', 'Web\ClinicController@storeVoucher')->name('clinic.storevoucher');
 
-	Route::get('storepayment/web/{booking_id}/{invoice_no}', 'Web\DoctorDashboardController@storepaymentweb')->name('storepayment.web');
+	Route::get('Diagnosis', 'Web\ClinicController@getDiagnosis')->name('getDiagnosis');
 
+	Route::post('Diagnosis/store', 'Web\ClinicController@diagnosisStore')->name('diagnosis_store');
+
+	Route::post('Diagnosis/storeOntime', 'Web\ClinicController@diagnosisStoreOntime')->name('diagnosis_store_ontime');
+
+	Route::post('attachmentimage', 'Web\ClinicController@attachimg')->name('attachimg');
 
 });
+
+
 
 
 Route::get('payment/test', 'Web\PaymentTestController@payment1')->name('pay');

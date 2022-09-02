@@ -1279,7 +1279,7 @@ class InventoryController extends Controller
     protected function company_information()
     {
         // dd($trans);
-
+        
         $com = CompanyInfomation::first();
         // dd($com->financial_end_date);
         $now_date = Carbon::now();
