@@ -27,7 +27,7 @@
                 <tbody>
                   <?php $i = 1;?>
                   @foreach($material_requests as $request)
-                  <tr class="text-center">
+                  <tr class="text-center" style="font-size:15px;">
                   	<td>{{$i++}}</td>
                   	<td>{{$request->request_code}}</td>
                   	<td>{{$request->request_date}}</td>
@@ -46,13 +46,13 @@
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <div class="modal-body text-center">
-                          <div class="row bg-info font-weight-bold p-2">
+                        <div class="modal-body text-center p-4">
+                          <div class="row bg-info font-weight-bold p-1" style="font-size:15px;">
                             <div class="col-md-2">
                               <span>Product Name</span>
                             </div>
                             <div class="col-md-2">
-                              <span>brand</span>
+                              <span>Brand</span>
                             </div>
                             <div class="col-md-2">
                               <span>Request Quantity</span>
@@ -94,7 +94,7 @@
                           ?>
                           <input type="hidden" id="req" value="{{$required_qty}}">
 
-                          <div class="row mb-1 mt-3" style="font-size:18px;">
+                          <div class="row mb-1 mt-3" style="font-size:15px;">
                             <div class="col-md-2">
                               {{$request_list->product->name}}
                             </div>
@@ -124,31 +124,31 @@
                           <div class="row  p-2">
                             <hr>
                             <div class="col-md-3">
-                              <span style="font-size: 18px;" class="text-info">Serial Number</span>
+                              <span style="font-size: 16px;" class="text-info">Serial Number</span>
                             </div>
                             <div class="col-md-3">
-                              <span style="font-size: 18px;" class="text-info">Size</span>
+                              <span style="font-size: 16px;" class="text-info">Size</span>
                             </div>
                             <div class="col-md-3">
-                              <span style="font-size: 18px;" class="text-info">Color</span>
+                              <span style="font-size: 16px;" class="text-info">Color</span>
                             </div>
                             <div class="col-md-3">
-                              <span style="font-size: 18px;" class="text-info">Dimension</span>
+                              <span style="font-size: 16px;" class="text-info">Dimension</span>
                             </div>
                           </div>
                             @foreach($available_items as $item)
-                            <div class="row mb-1 mt-3" style="font-size:18px;">
+                            <div class="row mb-1 mt-3" style="font-size:14px;">
                             <div class="col-md-3">
-                              <span style="font-size: 15px;">{{$item->serial_number}}</span>
+                              <span style="font-size: 14px;">{{$item->serial_number}}</span>
                             </div>
                             <div class="col-md-3">
-                              <span style="font-size: 15px;">{{$item->size}}</span>
+                              <span style="font-size: 14px;">{{$item->size}}</span>
                             </div>
                             <div class="col-md-3">
-                              <span style="font-size: 15px;">{{$item->color}}</span>
+                              <span style="font-size: 14px;">{{$item->color}}</span>
                             </div>
                             <div class="col-md-3">
-                              <span style="font-size: 15px;">{{$item->dimension}}</span>
+                              <span style="font-size: 14px;">{{$item->dimension}}</span>
                             </div>
                           </div>
                             @endforeach
