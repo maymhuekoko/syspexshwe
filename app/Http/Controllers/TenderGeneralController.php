@@ -139,7 +139,7 @@ class TenderGeneralController extends Controller
         // dd($trans);
         return view('Admin.bank_list',compact('account','banks','trans','currency'));
     }
-   
+
     protected function fixed_asset()
     {
         // dd('hello');
