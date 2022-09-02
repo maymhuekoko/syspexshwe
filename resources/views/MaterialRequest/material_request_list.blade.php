@@ -162,7 +162,7 @@
 
                           <a href="" id="por{{$request->id}}" class="btn btn-danger preq">Purchase Request</a>
 
-                           <a href="" onclick="" class="btn btn-primary" id="mis{{$request->id}}">Material Issue</a>
+                           <a href="{{route('material_issue')}}"  class="btn btn-primary" id="mis{{$request->id}}">Material Issue</a>
 
                         </div>
                       </div>
@@ -251,10 +251,6 @@
     });
 
   }
-
-
-
-
 
 
 //hello

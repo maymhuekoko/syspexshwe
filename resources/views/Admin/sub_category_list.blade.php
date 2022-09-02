@@ -21,7 +21,7 @@
                 <th>Sub Category Code</th>
                 <th>Sub Category Name</th>
                 <th>Related Category</th>
-                  
+
                   <th>Action</th>
             </thead>
             <tbody>
@@ -33,7 +33,6 @@
                   <td>{{$subcate->subcategory_code}}</td>
                   <td>{{$subcate->name}}</td>
                   <td>{{$subcate->category->category_name}}</td>
-                  
                   <td>
                       <a href="" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#update_subcategory{{$subcate->id}}">Update</a>
                       <a href="" class="btn btn-sm btn-danger"  onclick="ApproveLeave('{{$subcate->id}}')">Delete</a>
@@ -134,7 +133,7 @@
 @section('js')
 <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 
-<script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script> 
+<script src="{{asset('assets/js/jquery.slimscroll.js')}}"></script>
 <script>
 $('#sub_table').DataTable( {
 

@@ -42,14 +42,14 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
     // Route::get('category_list', 'Web\InventoryController@category_list')->name('category_list');
     // Route::post('store_category', 'Web\InventoryController@store_category')->name('store_category');
-    // Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
-    // Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('store_subcategory');
+    Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
+    Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('store_subcategory');
     // Route::get('bank_list', 'Web\InventoryController@bank_list')->name('bank_list');
     // Route::get('company_information', 'Web\InventoryController@company_information')->name('company_information');
 
 	// Route::post('update_cate','TenderGeneralController@update_category')->name('update_cate');
 
-	Route::post('delete_cate','TenderGeneralController@delete_category')->name('delete_cate');
+	// Route::post('delete_cate','TenderGeneralController@delete_category')->name('delete_cate');
 
 	Route::post('update_subcate','TenderGeneralController@update_subcategory')->name('update_subcate');
 	Route::post('delete_subcate','TenderGeneralController@delete_subcategory')->name('delete_subcate');
@@ -151,13 +151,15 @@ Route::group(['middleware' => ['UserAuth']], function () {
 	Route::get('show_grn_form','TenderGeneralController@show_grn_list')->name('show_grn_form');
 	Route::get('add_grn/{bom_po_id}','TenderGeneralController@add_grn_bom')->name('add_grn');
 	Route::post('store_grn','TenderGeneralController@store_grn_bom')->name('store_grn');
+
 	//Material Request List
 	Route::get('show_material_request_list','TenderGeneralController@show_material_request_list_page')->name('show_material_request_list');
 
 	//Sale Order from pj manager
 	Route::get('show_sale_order_list','TenderGeneralController@show_sale_order_list_page')->name('show_sale_order_list');
 
-
+    //Material     Issue
+    Route::get('material_issue','TenderGeneralController@show_material_issue_list')->name('material_issue');
 
 	//Customer
 	//Mail
@@ -542,9 +544,10 @@ return view('example_profile');
     Route::post('category/delete', 'Web\InventoryController@deleteCategory');
 
     //Sub_Category
-    Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
-    Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('store_subcategory');
-	Route::post('showSubCategory', 'Web\InventoryController@showSubCategory');
+    // Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
+    // Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('sub_category_store');
+    // Route::post('update_subcate','Web\InventoryController@update_subcategory')->name('update_subcate');
+	// Route::post('showSubCategory', 'Web\InventoryController@showSubCategory');
 
     //Brand
     Route::get('bank_list', 'Web\InventoryController@bank_list')->name('bank_list');
@@ -582,6 +585,8 @@ return view('example_profile');
     Route::get('balancesheet_acc_list', 'Web\FinancialReportController@balancesheet_acc_list')->name('balancesheet_acc_list');
     Route::get('trial_balance', 'Web\FinancialReportController@trial_balance')->name('trial_balance');
     //Financial Report End
+
+
 
 
 
