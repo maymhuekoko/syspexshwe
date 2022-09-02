@@ -39,10 +39,6 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	//Syspexshwe Begin
 
-
-
-
-    // Route::get('brand_list', 'TenderGeneralController@brand_list')->name('brand_list');
     Route::post('store_bank', 'TenderGeneralController@store_bank')->name('store_bank');
     Route::post('store_company', 'TenderGeneralController@store_company')->name('store_company');
     Route::post('update_company', 'TenderGeneralController@update_company')->name('update_company');
@@ -185,7 +181,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	//Announcement & Advertisement
 
-	Route::post('Announcement_Store', 'Web\OperatorController@announcementStore')->name('announcement_store');
+
 
 	Route::get('Announcement', 'Web\OperatorController@announcementIndex')->name('announcement.index');
 
@@ -227,7 +223,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
 	Route::get('ScheduleList', 'Web\ScheduleController@ScheduleList')->name('schedule_list');
 
 
-	Route::get('CreateScheduleDay', 'Web\ScheduleController@CreateScheduleDay')->name('create_schedule_day');
+
 
 
 
@@ -255,7 +251,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	Route::get('AdminProfile', 'Web\OperatorController@AdminProfile')->name('admin_profile');
 
-	Route::get('CounterProfile/{admin_id}', 'Web\OperatorController@counterProfile')->name('counter_profile');
+
 
 	Route::get('CounterProfileEdit/{admin_id}', 'Web\OperatorController@counterProfileEdit')->name('counter_profile_edit');
 
@@ -308,13 +304,8 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	Route::post('EditTown', 'Web\OperatorController@editTown')->name('edit_town');
 
-	//DoctorController
 
-	Route::get('DoctorList', 'Web\DoctorController@DoctorList')->name('doctor_list');
 
-	Route::get('CreateDoctor', 'Web\DoctorController@CreateDoctor')->name('create_doctor');
-
-	Route::post('StoreDoctor', 'Web\DoctorController@StoreDoctor')->name('store_doctor');
 
     Route::get('company_information', 'Web\InventoryController@company_information')->name('company_information');
 	Route::post('ajaxProduct_Comparison', 'Web\InventoryController@get_product_supplier_comparison');
@@ -412,55 +403,9 @@ Route::post('packages/delete','Web\PackageController@packageDelete')->name('pack
 
 		Route::get('Order/Voucher-Details/{id}', 'Web\OrderController@getVoucherDetails')->name('voucher_order_details');
 
-
-	//DOCTOR DASHBORAD
-
-
-//Clinic
-	Route::get('patient/register', 'Web\ClinicController@patientregister')->name('patientregister');
-	Route::post('appointment/store', 'Web\ClinicController@appointmentStore')->name('appointmentstore');
-	Route::post('searchpatient', 'Web\ClinicController@searchpatient');
-	Route::post('oldpatient/appointment', 'Web\ClinicController@oldpatientAppointment')->name('appointment.oldpatient');
-	Route::get('appointments/{patient_id}', 'Web\ClinicController@appointments')->name('appointments');
-
-	//today appointments
-	Route::get('appointments', 'Web\ClinicController@todayAppointments')->name('today.appointments');
-	Route::post('searchpatient/todayappointments', 'Web\ClinicController@searchpatientToday');
-	Route::post('appointments/delete', 'Web\ClinicController@todayaptdelete')->name('todayaptdelete');
-
-	Route::post('searchAppointments/filter', 'Web\ClinicController@searchAppointments');
-
-
-	Route::get('records/{appointment_id}', 'Web\ClinicController@appointmentRecord')->name('appointmentRecord');
-	Route::get('patient/history/{appointment_id}', 'Web\ClinicController@patientHistory')->name('patienthist');
-	Route::post('store/record', 'Web\ClinicController@storeRecord')->name('storeRecord');
-	Route::post('store/recordinfo', 'Web\ClinicController@storeRecordInfo')->name('storeRecordInfo');
-	Route::post('attachments/store', 'Web\ClinicController@attachmentsStore')->name('attachments.store');
-
-	Route::post('attachments/delete', 'Web\ClinicController@attachmentsDelete')->name('attachments.delete');
-	Route::post('addservices', 'Web\ClinicController@addserviceCounter')->name('addserviceCounter');
-
-	//clinic history
-	Route::get('clinichistory', 'Web\ClinicController@history')->name('history');
-
-	Route::post('clinic/storevoucher', 'Web\ClinicController@storeVoucher')->name('clinic.storevoucher');
-
-	Route::get('Diagnosis', 'Web\ClinicController@getDiagnosis')->name('getDiagnosis');
-
-	Route::post('Diagnosis/store', 'Web\ClinicController@diagnosisStore')->name('diagnosis_store');
-
-	Route::post('Diagnosis/storeOntime', 'Web\ClinicController@diagnosisStoreOntime')->name('diagnosis_store_ontime');
-
-	Route::post('attachmentimage', 'Web\ClinicController@attachimg')->name('attachimg');
-
-});
-
 Route::group(['middleware' => ['UserAuth']], function () {
 
 
-	Route::get('editDoctor/{id}', 'Web\DoctorController@editDoctor')->name('edit_doctor');
-
-	Route::post('edit/StoreDoctor', 'Web\DoctorController@editStoreDoctor')->name('edit_store_doctor');
 
 	//doctor admin
 	Route::post('EditBookingRecord', 'Web\OperatorController@editBookingRecord')->name('edit_booking_record');
