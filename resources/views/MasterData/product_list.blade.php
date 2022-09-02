@@ -27,7 +27,7 @@
                     <th>Description</th>
                     <th>Product Register Date</th>
                     <th>Action</th>
-                    
+
                     <!-- <th>Advance</th> -->
                   </tr>
                 </thead>
@@ -41,7 +41,7 @@
 
                     <td>{{$product->selling_price}}</td>
 
-                    
+
                     <td>{{$product->stock_qty}}</td>
                     <td>{{$product->description}}</td>
                     <td>{{$product->reg_date}}</td>
@@ -77,7 +77,7 @@
                           <div class="col-md-2">
                                 <label style="font-size:15px;" class="text-info">Purchase Price</label>
                           </div>
-                          
+
                         </div>
                         <div class="row mt-2">
                             <?php $j=1 ?>
@@ -129,7 +129,7 @@
                       </div>
                       </td>
                   </tr>
-                 
+
                   @endforeach
                 </tbody>
               </table>
@@ -248,7 +248,7 @@
                             <label class="control-label">Site Engineer</label>
                             <select class="form-control" name="site_id" onchange="getSiteInventoryAll(this.value)">
                             <option value="">Select</option>
-                            
+
                             </select>
                         </div>
                     </div>
@@ -263,7 +263,7 @@
                               <!-- <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                               </div> -->
-                           
+
                         </div>
                           </div>
                           <div class="modal-footer">
@@ -287,9 +287,9 @@
     $('.mainradio').hide();
     $('.regionalradio').hide();
     $('.projectbox').hide();
-    
+
     $('.phasebox').hide();
-    
+
     $('.sitebox').hide();
 
     $('.re_name').hide();
@@ -306,13 +306,13 @@
 
            data:{
            	"_token":"{{csrf_token()}}",
-           	"zone_id":zone_id, 
+           	"zone_id":zone_id,
            },
 
            success:function(data){
-               
+
            	$.each(data,function(i,shelve){
-           	    
+
            	    $('#shelve_'+product_id).append($('<option>').attr('value',shelve.id).text(shelve.name));
            	})
             console.log($('#shelve_'+product_id).val());
@@ -328,7 +328,7 @@
     //           url:'/getCompare',
     //           data:{
     //             "_token":"{{csrf_token()}}",
-    //             "product_id":pro_id, 
+    //             "product_id":pro_id,
     //           },
     //           success:function(data){
     //               var htmlcomparetablepri = "";
@@ -341,54 +341,54 @@
     //                               <tr>
     //                               <th col-span="5">Field Name</th>
     //                               <th>Primary</th>
-                                  
+
     //                               </tr>
     //                               </thead>
     //                               <tbody>
-                                  
+
     //                               </tbody>
     //                             </table>
-                  
+
     //               `;
     //               $('#compare_table'+pro_id).html(htmlcomparetablepri);
     //               htmlcomparetablesec +=`
     //                             <table id="compareTableSec${pro_id}" class="table table-bordered table-hover">
-                                 
-                                  
+
+
     //                             </table>
-                  
+
     //               `;
     //               $('#compare_table_sec'+pro_id).html(htmlcomparetablesec);
 
-                 
+
     //               //TEST
     //               var i=0;
     //               $('#compareTableSec'+pro_id).append('<thead><tr>');
     //               $('#compareTableSec'+pro_id).append('<th colspan="5" class="text-center bg-info">Field Name</th>');
     //               $('#compareTableSec'+pro_id).append('<th class="text-center bg-info">Primary</th>');
-    //            	  $.each(data.sec_pro,function(i,second){ 
-                    
+    //            	  $.each(data.sec_pro,function(i,second){
+
     //                 $('#compareTableSec'+pro_id).append('<th class="text-center bg-info">Secondary</th>');
-                          
+
     //                })
-    //                $('#compareTableSec'+pro_id).append('</tr></thead>'); 
+    //                $('#compareTableSec'+pro_id).append('</tr></thead>');
 
 
-                 
-    //                $('#compareTableSec'+pro_id).append('</tr></tbody>'); 
+
+    //                $('#compareTableSec'+pro_id).append('</tr></tbody>');
     //                //Supplier Name
     //                $('#compareTableSec'+pro_id).append('<tbody><tr>');
     //                $('#compareTableSec'+pro_id).append('<td colspan="5" class="font-weight-bold text-secondary">Supplier Name</td>');
     //                $('#compareTableSec'+pro_id).append('<td class="text-center">'+data.pri_supplier+'</td>');
-    //                       $.each(data.sec_pro,function(i,second){                         
-    //                         $('#compareTableSec'+pro_id).append('<td class="text-center">'+data.sec_pro[i].supplier_name+'</td>');                        
+    //                       $.each(data.sec_pro,function(i,second){
+    //                         $('#compareTableSec'+pro_id).append('<td class="text-center">'+data.sec_pro[i].supplier_name+'</td>');
     //                       })
     //                $('#compareTableSec'+pro_id).append('</tr></tbody>');
     //                //Purchase Price
     //                $('#compareTableSec'+pro_id).append('<tbody><tr>');
     //                $('#compareTableSec'+pro_id).append('<td colspan="5" class="font-weight-bold text-secondary">Purchase Price</td>');
     //                $('#compareTableSec'+pro_id).append('<td class="text-center">'+data.pri_purchase+'</td>');
-    //                       $.each(data.sec_pro,function(i,second){ 
+    //                       $.each(data.sec_pro,function(i,second){
     //                         if(data.sec_pro[i].sec_purchase_price != null)
     //                       {
     //                         $('#compareTableSec'+pro_id).append('<td class="text-center">'+second.sec_purchase_price+'</td>');
@@ -403,27 +403,27 @@
     //                $('#compareTableSec'+pro_id).append('<tbody><tr>');
     //                $('#compareTableSec'+pro_id).append('<td colspan="5" class="font-weight-bold text-secondary">Discount %</td>');
     //                $('#compareTableSec'+pro_id).append('<td class="text-center text-danger">No Discount</td>');
-    //                       $.each(data.sec_pro,function(i,second){                       
-    //                         $('#compareTableSec'+pro_id).append('<td class="text-center text-danger">No Discount</td>');                        
+    //                       $.each(data.sec_pro,function(i,second){
+    //                         $('#compareTableSec'+pro_id).append('<td class="text-center text-danger">No Discount</td>');
     //                       })
     //                $('#compareTableSec'+pro_id).append('</tr></tbody>');
     //                //Last Purchase Date
     //                $('#compareTableSec'+pro_id).append('<tbody><tr>');
     //                $('#compareTableSec'+pro_id).append('<td colspan="5" class="font-weight-bold text-secondary">Last Purchase Date</td>');
     //                $('#compareTableSec'+pro_id).append('<td class="text-center"><span class="badge badge-primary">'+data.pri_purchase_date+'</span></td>');
-    //                       $.each(data.sec_pro,function(i,second){ 
+    //                       $.each(data.sec_pro,function(i,second){
     //                         $('#compareTableSec'+pro_id).append('<td class="text-center"><span class="badge badge-primary">'+second.purchase_date+'</span></td>');
     //                       })
     //                $('#compareTableSec'+pro_id).append('</tr></tbody>');
-                 
 
-                   
-                  
-                  
-                   
-              
+
+
+
+
+
+
                   //END TEST
-                
+
             //   }
             // });
     // }
@@ -431,38 +431,38 @@
     //    alert("isWarehouse"+value);
         $('#mainval').val(value);
         $('#regionalval').val("");
-    
+
     $('#projectID').val("");
     $('#phaseID').val("");
-    $('#engeID').val(""); 
-      
+    $('#engeID').val("");
+
         console.log(value);
-        
+
         if(value == 1){
-            
+
             $('#main_radio'+proid).show();
-            
+
             $('#regional_radio'+proid).show();
-            
+
             $('#project_box'+proid).hide();
-            
+
             $('#phase_box'+proid).hide();
-            
+
             $('#site_box'+proid).hide();
 
             $('#rename'+proid).hide();
         }
-        
+
         else if(value == 2){
-            
+
             $('#main_radio'+proid).hide();
-            
+
             $('#regional_radio'+proid).hide();
-            
+
             $('#project_box')+proid.show();
-            
+
             $('#phase_box'+proid).show();
-            
+
             $('#site_box'+proid).show();
 
             $('.ren_ame').hide();

@@ -60,9 +60,9 @@
                       <span class="ml-2">Action</span>
 
                     </div>
-                    
 
-                    
+
+
                   </div>
                   <?php $i=1; ?>
                   @foreach($sale_project_yearly as $saleyear)
@@ -87,7 +87,7 @@
                       <span style="font-size:15px;"><i>{{$saleyear->roi_value}}</i></span>
                     </div>
                     <div class="col-md-3 btn-group">
-                    <a href="{{route('change_pj_status',$saleyear->id)}}" class="btn btn-danger btn-sm"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Change Status</a>
+                      <a href="{{route('change_pj_status',$saleyear->id)}}" class="btn btn-danger btn-sm"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Change Status</a>
 
                       <a href="{{route('show_pay_invoice',$saleyear->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Invoice</a>
                       <!-- <a href="{{route('invoice_accounting',$saleyear->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2" aria-hidden="true"></i>Invoices</a> -->
@@ -131,9 +131,9 @@
                     <div class="col-md-3">
                       <span class="ml-2">Action</span>
                     </div>
-                   
 
-                    
+
+
                   </div>
                   <?php $i=1; ?>
                   @foreach($sale_project_yearly as $saleyear)
@@ -201,7 +201,7 @@
                       <span class="ml-2">Action</span>
 
                     </div>
-                    
+
                   </div>
                   <?php $i=1; ?>
                   @foreach($sale_project_yearly as $saleyear)
@@ -251,7 +251,7 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
-                    </div> 
+                    </div>
                     <div class="modal-body">
                         <div class="row bg-info font-weight-bold p-2">
                       <!-- <div class="col-md-1">
@@ -275,7 +275,7 @@
                         <div class="col-md-2">
                           <span>Description</span>
                         </div>
-                        
+
                       </div>
                       @foreach($sale_project_yearly as $sale_detail)
                       @if($saleyear->id == $sale_detail->id)

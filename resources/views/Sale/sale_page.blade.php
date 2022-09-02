@@ -96,28 +96,28 @@
 
                                     <div class="form-group mb-4">
                                         <label>State</label>
-        
+
                                         <select class="select2 floating state_lists" style="width: 100%" name="state_id">
-        
+
                                              <option value="">Select State</option>
                                             @foreach($state_lists as $doc)
-        
+
                                             <option value="{{$doc->id}}">{{$doc->state_code}}-{{$doc->state_name}}</option>
-        
+
                                             @endforeach
-        
+
                                         </select>
-        
+
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label>Town</label>
-        
+
                                         <select class="select2 floating" id="towns" style="width: 100%" name="town_id">
                                             <option value="">Select State</option>
-        
+
                                         </select>
-        
+
                                     </div>
 
                                     <div class="form-group">
@@ -130,8 +130,8 @@
                                         <input class="form-control" type="number" id="delivery_charges" name="charges">
                                     </div>
                                   </div>
-                                   
-                                    <div class="m-t-20"> 
+
+                                    <div class="m-t-20">
                                         <a href="#" class="btn btn-danger ml-3" data-dismiss="modal">Close</a>
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
@@ -163,7 +163,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs customtab" role="tablist">
-                        <li class="nav-item 
+                        <li class="nav-item
                         @if(session()->get('user')->hasRole('EmployeeC'))
                         d-none
                           @endif
@@ -206,12 +206,12 @@
                             </button>
                         </li>
                         @endif
-                  
+
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane 
+                        <div class="tab-pane
                         @if(session()->get('user')->hasRole('Employee') || session()->get('user')->hasRole('Doctor') || session()->get('user')->hasRole('DoctorC') )
                       active
                         @endif
@@ -273,7 +273,7 @@
                                 </div>
                             </div>
                             @endif
-                         
+
 
                             <table class="table" id="table_4">
                                     <div class="row">
@@ -318,7 +318,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="tab-pane 
+                        <div class="tab-pane
                         @if(session()->get('user')->hasRole('EmployeeC') )
                         active
                           @endif
@@ -474,7 +474,7 @@
                                 </tr>
                             </thead>
                             <tbody id="sale">
-                                
+
                             </tbody>
                             <tbody id="doctorSer">
 
@@ -482,7 +482,7 @@
                             <tbody id="serVice">
 
                             </tbody>
-                     
+
                         </table>
                     </div>
                     <div class="row ml-2 float-right">
@@ -510,17 +510,17 @@
                                 <i class="btn btn-success ml-4" onclick="addservices()"><i class="fas fa-calendar-check"></i>
                                 Add Service </i>
                             </div>
-                          
-                           
+
+
                         </div>
                         @else
                         <div class="">
-                       
+
                             <button class="btn bpinkcolor text-white ml-4" onclick="medicineRecord()"><i class="fa fa-plus-circle"></i>
                                 Medicine </button>
                         </div>
                         @endif
-                    
+
 
 
                         <div class="modal fade" id="customer_order" role="dialog" aria-hidden="true">
@@ -586,7 +586,7 @@
                 "info":     false,
 
             });
-       
+
 
             $('#table_2').DataTable({
                 "bDestroy": true,
@@ -616,8 +616,8 @@
                     return: true
                 }
             });
-         
-           
+
+
         });
 
 
@@ -668,12 +668,12 @@
                     $.each(data,function(i,v){
                         html+= `
                     <option data-charges="${v.delivery_charges}" value="${v.id}">${v.town_code}-${v.town_name}</option>
-                        
+
                         `;
                     });
                     $('#towns').html(html);
-                   
-               
+
+
                 }
             });
         });
@@ -1046,7 +1046,7 @@
                                         </td>
                                         <td class="text-center">
                                             <button style="border-radius:8px" class="btn bbulecolor text-white" onclick="getCountingUnit(${v.id})"><i class="fas fa-plus"></i>Sale</i>
-                                        </td>                                    
+                                        </td>
                                     </tr>
                         `;
 
@@ -1123,16 +1123,16 @@
                         // var itemNamebrand= unit.item.item_name +'('+unit.item.brand.name+')'+'('+unit.item.type.name+')';
                         // <input type="hidden" id="qty_${service.id}" value="${unit.stock_qty}">
                         html += `<tr class="text-center">
-                  
+
                     <input type="hidden" id="servicecharges_${service.id}" value="${service.charges}">
                         <td id="servicename_${service.id}">${service.name}</td>
                         <td>${service.charges}</td>
                         <td>
                             <input id="form-check-input" type="checkbox" class="styled" value="${service.id}" checked>
                         </td>
-                  
+
                   </tr>
-                  
+
                   `;
                     });
 
@@ -1192,7 +1192,7 @@
                     };
                     var docService_cart = localStorage.getItem('docServiceCart');
                     var docService_cartobjtest = JSON.parse(docService_cart);
-                
+
                     var docService_grandTotal = localStorage.getItem('docServiceGrandTotal');
                     var docService_cartobjtest = JSON.parse(docService_grandTotal);
 
@@ -1340,8 +1340,8 @@
             $("#unit_table_modal").modal('hide');
 
             showmodal();
-        
-            
+
+
         }
 
         function tgService(id) {
@@ -1514,10 +1514,10 @@
                             showmodal();
 
                             }
-                    
-                    
 
-                
+
+
+
                 } else if (action == 'minus') {
 
                     if (item[0].order_qty == 1) {
@@ -1666,8 +1666,8 @@
                     count_item('docService');
 
                     showmodal();
-                
-                } else if (action == 'minus') 
+
+                } else if (action == 'minus')
                 {
 
                     if (item[0].qty == 1) {
@@ -1955,7 +1955,7 @@
                     <button class="btn btn-warning mx-2" data-pendingvoucherno="${v}"><i class="fas fa-arrow-alt-circle-up"></i> Customer ${v}</button>
                 <p class="bg-danger text-white deletevoucher rounded" data-pendingvoucherno="${v}">x</p>
                 </div>
-                
+
                 `;
                 $('.pending-voucher').append(btnpending);
             })
@@ -2041,8 +2041,8 @@
                             <td class="bluecolor font-weight-bold"></td>
 
                             <td>
-                                <i class="bluecolor fa fa-plus-circle btnplus" onclick="plus(${ds.id},'docService')" id="${ds.id}"></i>  
-                                ${ds.qty}  
+                                <i class="bluecolor fa fa-plus-circle btnplus" onclick="plus(${ds.id},'docService')" id="${ds.id}"></i>
+                                ${ds.qty}
                                 <i class="bluecolor fa fa-minus-circle btnminus"  onclick="minus(${ds.id},'docService')" id="${ds.id}"></i>
                             </td>
 
@@ -2091,8 +2091,8 @@
                             <td class="bluecolor font-weight-bold">${ps.type}</td>
 
                             <td>
-                                <i class="bluecolor fa fa-plus-circle btnplus" onclick="plus(${ps.id},'pagService')" id="${ps.id}"></i>  
-                                ${ps.qty}  
+                                <i class="bluecolor fa fa-plus-circle btnplus" onclick="plus(${ps.id},'pagService')" id="${ps.id}"></i>
+                                ${ps.qty}
                                 <i class="bluecolor fa fa-minus-circle btnminus"  onclick="minus(${ps.id},'pagService')" id="${ps.id}"></i>
                             </td>
 
@@ -2188,7 +2188,7 @@
 
                 }
             }
- 
+
         }
 
         function storePendingVoucher() {
@@ -2204,7 +2204,7 @@
             var pagServiceCart = localStorage.getItem('pagServiceCart');
 
             var pagServicegrandTotal = localStorage.getItem('pagServicegrandTotal');
-            
+
             var nextvoucherno = parseInt(pendingvoucherno) + 1;
 
             var now_customer = $('#now_customer').val();
@@ -2257,7 +2257,7 @@
                     <button class="btn btn-warning mx-2" data-pendingvoucherno="${pendingvoucherno}"><i class="fas fa-arrow-alt-circle-up"></i> Customer ${pendingvoucherno}</button>
                 <p class="bg-danger text-white deletevoucher rounded" data-pendingvoucherno="${pendingvoucherno}">x</p>
                 </div>
-                
+
                 `;
                     $('.pending-voucher').append(btnpending);
                 } else {
@@ -2442,7 +2442,7 @@
 
                 }
                 else{
-                    
+
                     $('#add_delivery').modal('show');
 
                 }
@@ -2584,7 +2584,7 @@
                                         </td>
                                         <td class="text-center">
                                             <button style="border-radius:8px" class="btn bbluecolor text-white" onclick="getCountingUnit(${v.id})"><i class="fas fa-plus"></i>Sale</button>
-                                        </td>                                    
+                                        </td>
                                     </tr>`
 
                     $('#all').html(html);
@@ -2624,7 +2624,7 @@
                                         </td>
                                         <td class="text-center">
                                             <button style="border-radius:8px" class="btn bbulecolor text-white" onclick="getCountingUnit(${v.id})"><i class="fas fa-plus"></i>Sale</button>
-                                        </td>                                    
+                                        </td>
                                     </tr>`
 
                     $('#frozen').html(html);
@@ -2664,7 +2664,7 @@
                                         </td>
                                         <td class="text-center">
                                             <button style="border-radius:8px" class="btn bbluecolor text-white" onclick="getCountingUnit(${v.id})"><i class="fas fa-plus"></i>Sale</button>
-                                        </td>                                    
+                                        </td>
                                     </tr>`
 
                     $('#dry').html(html);
@@ -2704,7 +2704,7 @@
                                         </td>
                                         <td class="text-center">
                                             <button style="border-radius:8px" class="btn bbluecolor text-white" onclick="getCountingUnit(${v.id})"><i class="fas fa-plus"></i>Sale</i>
-                                        </td>                                    
+                                        </td>
                                     </tr>`
 
                     $('#sea').html(html);
@@ -2726,13 +2726,13 @@
 
                 success: function(data) {
 
-                  
+
                 var html = "";
-                
+
                 $.each(data,function(i, v){
-                    
+
                     var id = v.id;
-                    
+
                     var item = v.name;
 
                     html+=`<tr>
@@ -2741,10 +2741,10 @@
                                 <td>${v.charges}</td>
                                 <td class="text-center">
                                     <button style="border-radius:8px" class="btn bbluecolor text-white" onclick="tgService onclick="tgService(${id})"><i class="fas fa-plus"></i>Add</button>
-                                </td>                                    
+                                </td>
                             </tr>`
                 });
-                
+
                 $("#table_2").html(html);
                 }
             });
@@ -2762,24 +2762,24 @@
 
                 success: function(data) {
 
-                
+
                     var html = "";
-                
+
                 $.each(data,function(i, v){
-                    
+
                     var id = v.id;
-                    
+
                     var item = v.name;
-                    
+
                     html+=`  <input type="hidden" id="serCharges_${id}" value="${v.total_charges}">
                                 <td id="serName_${id}">${item}</td>
                                 <td>${v.total_charges}</td>
                                 <td class="text-center">
                                     <button style="border-radius:8px" class="btn bbluecolor text-white" onclick="tgService(${id})"><i class="fas fa-plus"></i>Add</button>
-                                </td>                                    
+                                </td>
                             </tr>`
                 });
-                
+
                 $("#table_2").html(html);
                 }
             });
@@ -2788,11 +2788,11 @@
 
         function medicineRecord(){
 
-        
+
         localStorage.setItem('edit_medicine', 1);
-        
+
         var recordAppointId = localStorage.getItem('recordAppointId');
-        
+
         var url = '{{ route('appointmentRecord', ':appointment_id') }}';
 
         url = url.replace(':appointment_id',recordAppointId);

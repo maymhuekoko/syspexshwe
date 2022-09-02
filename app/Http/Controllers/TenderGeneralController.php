@@ -1993,7 +1993,8 @@ class TenderGeneralController extends Controller
 
     function change_project_status($id)
     {
-        // dd($id);
+        
+
         $sale_project = SaleProject::find($id);
         if($sale_project->status == 1)
         {
@@ -2195,7 +2196,7 @@ class TenderGeneralController extends Controller
     }
     function delete_category(Request $request)
     {
-        // dd($id);
+        return ('hello');
         $delete = Category::find($request->category_id);
         $delete->delete();
         // alert()->success("Successfully deleted!!");
@@ -2841,6 +2842,7 @@ class TenderGeneralController extends Controller
     }
     public function store_regional_ware(Request $request)
     {
+
         // dd($request->all());
         // $validator = Validator::make($request->all(), [
         //     'warehouse_name' => 'required',

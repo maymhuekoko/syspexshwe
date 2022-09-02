@@ -4,6 +4,10 @@ use App\Doctor;
 use App\Events\DoctorChange;
 use App\Events\TestingEvent;
 use App\Http\Controllers\TenderGeneralController;
+use App\Http\Controllers\Web\InventoryController;
+use App\Http\Controllers\Web\ProjectController;
+use App\Http\Controllers\Web\FinancialReportController;
+use App\Http\Controllers\WarehouseStockController;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\FuncCall;
 
@@ -35,14 +39,15 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	//Syspexshwe Begin
 
-    Route::get('category_list', 'TenderGeneralController@category_list')->name('category_list');
-    Route::post('store_category', 'TenderGeneralController@store_category')->name('store_category');
-    Route::get('sub_category_list', 'TenderGeneralController@sub_category_list')->name('sub_category_list');
-    Route::post('store_subcategory', 'TenderGeneralController@store_subcategory')->name('store_subcategory');
-    Route::get('bank_list', 'TenderGeneralController@bank_list')->name('bank_list');
-    Route::get('company_information', 'TenderGeneralController@company_information')->name('company_information');
 
-	Route::post('update_cate','TenderGeneralController@update_category')->name('update_cate');
+    // Route::get('category_list', 'Web\InventoryController@category_list')->name('category_list');
+    // Route::post('store_category', 'Web\InventoryController@store_category')->name('store_category');
+    // Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
+    // Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('store_subcategory');
+    // Route::get('bank_list', 'Web\InventoryController@bank_list')->name('bank_list');
+    // Route::get('company_information', 'Web\InventoryController@company_information')->name('company_information');
+
+	// Route::post('update_cate','TenderGeneralController@update_category')->name('update_cate');
 
 	Route::post('delete_cate','TenderGeneralController@delete_category')->name('delete_cate');
 
@@ -67,20 +72,21 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::get('add_asset', 'TenderGeneralController@add_asset')->name('add_asset');
 
 	Route::get('AccountList', 'Web\OperatorController@ShowAccountList')->name('account_list');
-    Route::get('profit_loss_acc_list', 'Web\OperatorController@profit_loss_acc_list')->name('profit_loss_acc_list');
-    Route::get('balancesheet_acc_list', 'Web\OperatorController@balancesheet_acc_list')->name('balancesheet_acc_list');
-    Route::get('trial_balance', 'Web\OperatorController@trial_balance')->name('trial_balance');
+    // Route::get('profit_loss_acc_list', 'Web\OperatorController@profit_loss_acc_list')->name('profit_loss_acc_list');
+    // Route::get('balancesheet_acc_list', 'Web\OperatorController@balancesheet_acc_list')->name('balancesheet_acc_list');
+    // Route::get('trial_balance', 'Web\OperatorController@trial_balance')->name('trial_balance');
 	Route::get('projectList', 'TenderGeneralController@show_account_list')->name('project_list');
-	Route::get('create-project', 'TenderGeneralController@create_project')->name('create_project');
+	// Route::get('create-project', 'TenderGeneralController@create_project')->name('create_project');
 	Route::get('customer-list', 'TenderGeneralController@show_customer_list')->name('customer_list');
 	Route::post('store-customer','TenderGeneralController@storeCustomer')->name('store_customer');
 	Route::post('check_project_type','TenderGeneralController@check_projectType')->name('check_project_type');
-	Route::get('show_project','TenderGeneralController@show_projectsale')->name('show_project');
-	Route::post('store_sale_project','TenderGeneralController@store_sale_project')->name('store_sale_project');
+	// Route::get('show_project','TenderGeneralController@show_projectsale')->name('show_project');
+	// Route::post('store_sale_project','TenderGeneralController@store_sale_project')->name('store_sale_project');
 	Route::post('store_accounting','TenderGeneralController@store_accounting_account')->name('store_accounting');
-	Route::get('create-product', 'TenderGeneralController@createProduct')->name('create-product');
-	Route::get('product_list', 'TenderGeneralController@product_list')->name('product_list');
-	Route::post('add_item','TenderGeneralController@add_item_product')->name('add_item');
+	// Route::get('create-product', 'TenderGeneralController@createProduct')->name('create-product');
+
+	// Route::get('product_list', 'TenderGeneralController@product_list')->name('product_list');
+	// Route::post('add_item','TenderGeneralController@add_item_product')->name('add_item');
     Route::get('cost_center', 'TenderGeneralController@cost_center')->name('cost_center');
     Route::get('currency', 'TenderGeneralController@currency')->name('currency');
     Route::post('store_currency', 'TenderGeneralController@store_currency')->name('store_currency');
@@ -95,7 +101,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::post('update_currency/{id}', 'TenderGeneralController@update_currency')->name('update_currency');
     Route::post('update_accounting/{id}', 'TenderGeneralController@update_accounting')->name('update_accounting');
     Route::post('store_cost_center', 'TenderGeneralController@store_cost_center')->name('store_cost_center');
-	Route::post('store_product', 'TenderGeneralController@store_product')->name('store_product');
+	// Route::post('store_product', 'TenderGeneralController@store_product')->name('store_product');
 	Route::get('add_invoice','TenderGeneralController@add_new_invoice')->name('add_invoice');
 	Route::post('store_invoice','TenderGeneralController@store_invoice')->name('store_invoice');
 	Route::get('show_invoice','TenderGeneralController@show_invoice_list')->name('show_invoice');
@@ -117,12 +123,12 @@ Route::group(['middleware' => ['UserAuth']], function () {
 	Route::post('ajax_delete_brand','TenderGeneralController@ajax_delete_new_brand')->name('ajax_delete_brand');
 	Route::post('get_subcate_ajax','TenderGeneralController@ajax_get_subcate')->name('get_subcate_ajax');
 	Route::post('store_add_product_ajax','TenderGeneralController@ajax_store_new_product')->name('store_add_product_ajax');
-	Route::get('RegionalWarehouse','TenderGeneralController@RegionalWarehouse')->name('RegionalWarehouse');
-	Route::get('add_regional_ware','TenderGeneralController@create_regional_ware')->name('add_regional');
+	// Route::get('RegionalWarehouse','TenderGeneralController@RegionalWarehouse')->name('RegionalWarehouse');
+	// Route::get('add_regional_ware','TenderGeneralController@create_regional_ware')->name('add_regional');
 	Route::post('store_regional','MasterDataController@store_regional_ware')->name('store_regional_warehouse');
-	Route::post('store_regional_ware','TenderGeneralController@store_regional_ware')->name('store_regional');
+	// Route::post('store_regional_ware','TenderGeneralController@store_regional_ware')->name('store_regional');
 	Route::get('regional_inventory/{regional_id}','TenderGeneralController@regionalInventory')->name('regional_inventory');
-	Route::get('check_inventory_list/{regional_id}','TenderGeneralController@checkInventory')->name('check_inventory_list');
+	// Route::get('check_inventory_list/{regional_id}','TenderGeneralController@checkInventory')->name('check_inventory_list');
 
 	//BOM
 	Route::get('show_bom','TenderGeneralController@show_bom_list')->name('show_bom');
@@ -166,19 +172,19 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	Route::get('customer_receive_list/{id}','TenderGeneralController@show_customer_receive_list')->name('customer_receive_list');
 
-	Route::get('change_pj_status/{id}','TenderGeneralController@change_project_status')->name('change_pj_status');
+	// Route::get('change_pj_status/{id}','TenderGeneralController@change_project_status')->name('change_pj_status');
     Route::post('ajax_get_cust','TenderGeneralController@now_ajax_get_cust')->name('ajax_get_cust');
 
 
 
 	Route::post('ajax_invoice_product','TenderGeneralController@invoice_product_list')->name('ajax_invoice_product');
-	Route::get('show_pay_invoice/{id}','TenderGeneralController@pay_invoice')->name('show_pay_invoice');
+	// Route::get('show_pay_invoice/{id}','TenderGeneralController@pay_invoice')->name('show_pay_invoice');
 	Route::post('store_pay_transaction','TenderGeneralController@store_transaction')->name('store_pay_transaction');
 
-	Route::get('show_pay_po/{id}','TenderGeneralController@pay_po')->name('show_pay_po');
+	// Route::get('show_pay_po/{id}','TenderGeneralController@pay_po')->name('show_pay_po');
 	//Products
 
-	Route::get('product_detail/{id}','TenderGeneralController@show_product_detail')->name('product_detail');
+	// Route::get('product_detail/{id}','TenderGeneralController@show_product_detail')->name('product_detail');
 	Route::post('getCompare','TenderGeneralController@getCompare_product')->name('getCompare');
 	//Common Ajax Function
 
@@ -321,27 +327,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
 
 	Route::post('StoreDoctor', 'Web\DoctorController@StoreDoctor')->name('store_doctor');
 
-
-
-	//Inventory
-
-
-	// Route::get('category_list','Web\InventoryController@category_list')->name('show_category_lists');
-	// Route::post('store_category','Web\InventoryController@store_category')->name('category_store');
-	// Route::post('category/update/{id}', 'Web\InventoryController@updateCategory')->name('category_update');
-	// Route::post('category/delete', 'Web\InventoryController@deleteCategory');
-
-	// Route::get('sub_category_list','Web\InventoryController@sub_category_list')->name('show_sub_category_lists');
-	// Route::post('subcategory/store', 'Web\InventoryController@storeSubCategory')->name('sub_category_store');
-	// Route::post('subcategory/update/{id}', 'Web\InventoryController@updateSubCategory')->name('sub_category_update');
-	// Route::post('subcategory/delete', 'Web\InventoryController@deleteSubCategory');
-
-	Route::get('brand_list','Web\InventoryController@brand_list')->name('show_brand_lists');
-	Route::post('brand/update/{id}', 'Web\InventoryController@updateBrand')->name('brand_update');
-	Route::post('brand/store', 'Web\InventoryController@storeBrand')->name('brand_store');
-    Route::post('brand/delete', 'Web\InventoryController@deletebrand');
-
-	Route::post('showSubCategory', 'Web\InventoryController@showSubCategory');
+    Route::get('company_information', 'Web\InventoryController@company_information')->name('company_information');
 	Route::post('ajaxProduct_Comparison', 'Web\InventoryController@get_product_supplier_comparison');
 	Route::post('ajaxComparison_detail', 'TenderGeneralController@show_comparison_detail');
 	Route::get('type_list','Web\InventoryController@type_list')->name('show_type_lists');
@@ -544,4 +530,62 @@ Route::post('payment/payment4/data', 'Web\PaymentTestController@payment4data')->
 Route::get('profile',function(){
 return view('example_profile');
 });
+
+
+
+    //Inventory
+
+    //Category
+    Route::get('category_list', 'Web\InventoryController@category_list')->name('category_list');
+    Route::post('store_category', 'Web\InventoryController@store_category')->name('store_category');
+	Route::post('update_cate','Web\InventoryController@update_category')->name('update_cate');
+    Route::post('category/delete', 'Web\InventoryController@deleteCategory');
+
+    //Sub_Category
+    Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
+    Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('store_subcategory');
+	Route::post('showSubCategory', 'Web\InventoryController@showSubCategory');
+
+    //Brand
+    Route::get('bank_list', 'Web\InventoryController@bank_list')->name('bank_list');
+    Route::get('brand_list','Web\InventoryController@brand_list')->name('show_brand_lists');
+	Route::post('brand/update/{id}', 'Web\InventoryController@updateBrand')->name('brand_update');
+	Route::post('brand/store', 'Web\InventoryController@storeBrand')->name('brand_store');
+    Route::post('brand/delete', 'Web\InventoryController@deletebrand');
+
+    //Main WareHouse Product
+    Route::get('product_list', 'Web\InventoryController@product_list')->name('product_list');
+    Route::get('create-product', 'Web\InventoryController@createProduct')->name('create-product');
+    Route::post('store_product', 'Web\InventoryController@store_product')->name('store_product');
+    Route::get('product_detail/{id}','Web\InventoryController@show_product_detail')->name('product_detail');
+    Route::post('add_item','Web\InventoryController@add_item_product')->name('add_item');
+
+    //Regional Warehouse CRUD Start
+    Route::get('RegionalWarehouse','Web\WarehouseStockController@RegionalWarehouse')->name('RegionalWarehouse');
+	Route::get('add_regional_ware','Web\WarehouseStockController@create_regional_ware')->name('add_regional');
+    Route::post('store_regional_ware','Web\WarehouseStockController@store_regional_ware')->name('store_regional');
+	Route::get('check_inventory_list/{regional_id}','Web\WarehouseStockController@checkInventory')->name('check_inventory_list');
+    //Regional Warehouse CRUD End
+
+    //Product Start
+    Route::get('show_project','Web\ProjectController@show_projectsale')->name('show_project');
+    Route::get('create-project', 'Web\ProjectController@create_project')->name('create_project');
+	Route::post('store_sale_project','Web\ProjectController@store_sale_project')->name('store_sale_project');
+	Route::get('change_pj_status/{id}','Web\ProjectController@change_project_status')->name('change_pj_status');
+	Route::get('show_pay_invoice/{id}','Web\ProjectController@pay_invoice')->name('show_pay_invoice');
+	Route::get('show_pay_po/{id}','Web\ProjectController@pay_po')->name('show_pay_po');
+    //Product End
+
+    //Financial Report Start
+
+    Route::get('profit_loss_acc_list', 'Web\FinancialReportController@profit_loss_acc_list')->name('profit_loss_acc_list');
+    Route::get('balancesheet_acc_list', 'Web\FinancialReportController@balancesheet_acc_list')->name('balancesheet_acc_list');
+    Route::get('trial_balance', 'Web\FinancialReportController@trial_balance')->name('trial_balance');
+    //Financial Report End
+
+
+
+
+
+
 

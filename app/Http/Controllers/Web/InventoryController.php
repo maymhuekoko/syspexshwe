@@ -14,6 +14,10 @@ use App\UnitConversion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\incoterm_type;
+use App\Product;
+use App\RegionalWarehouse;
+use App\SaleProject;
 use App\SupplierProductComparison;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -21,13 +25,14 @@ use Illuminate\Support\Facades\DB;
 class InventoryController extends Controller
 {
     //
+
+    //Category CRUD Start
     protected function category_list()
     {
-        $category_lists =  Category::whereNull("deleted_at")->get();
-
-		return view('Inventory.category_list', compact('category_lists'));
-
+        $category = Category::all();
+        return view('Admin.category_list',compact('category'));
     }
+
     protected function store_category(Request $request)
     {
         // dd($request->all());
@@ -71,33 +76,18 @@ class InventoryController extends Controller
 
         return redirect()->route('show_category_lists');
     }
-    protected function updateCategory(Request $request,$id)
+
+    function update_category(Request $request)
     {
         // dd($request->all());
-        try {
-
-
-        	$category = Category::findOrFail($id);
-
-   		} catch (\Exception $e) {
-
-        	alert()->error("Category Not Found!")->persistent("Close!");
-
-            return redirect()->back();
-
-    	}
-
-        $category->category_code = $request->category_code;
-
-        $category->category_name = $request->category_name;
-
-        $category->save();
-
-
-        alert()->success('Successfully Updated!');
-
-        return redirect()->route('show_category_lists');
+        $update = Category::find($request->cate_id);
+        $update->category_code = $request->code;
+        $update->category_name = $request->name;
+        $update->save();
+        alert()->success("Successfully Updated!!");
+        return back();
     }
+
     protected function deleteCategory(Request $request)
     {
         $id = $request->category_id;
@@ -122,8 +112,13 @@ class InventoryController extends Controller
 
         return response()->json($category);
     }
+    //Category CRUD End
+
+
+    //Sub_Category CRUD Start
     protected function sub_category_list()
     {
+
         $categories = Category::all();
 
 
@@ -132,6 +127,7 @@ class InventoryController extends Controller
 		return view('Inventory.sub_category_list', compact('categories','sub_categories'));
 
     }
+
     protected function storeSubCategory(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -169,6 +165,17 @@ class InventoryController extends Controller
 
         return redirect()->route('show_sub_category_lists');
     }
+
+    protected function showSubCategory(request $request){
+
+
+	    $category_id = $request->category_id;
+
+	    $subcategory = SubCategory::where('category_id', $category_id)->get();
+
+	    return response()->json($subcategory);
+    }
+
     protected function updateSubCategory(Request $request,$id)
     {
         try {
@@ -196,6 +203,7 @@ class InventoryController extends Controller
         return redirect()->route('show_sub_category_lists');
 
     }
+
     protected function deleteSubCategory(Request $request)
 	{
 		$id = $request->sub_category_id;
@@ -220,6 +228,9 @@ class InventoryController extends Controller
 
         return response()->json($subcategory);
 	}
+    //Sub_Category CRUD end
+
+    //Brand CRUD Start
     protected function brand_list()
     {
         $brands= Brand::all();
@@ -229,6 +240,7 @@ class InventoryController extends Controller
 		// dd($supplier);
 		return view('Inventory.brand_list', compact('supplier','sub_categories','brands','categories'));
     }
+
     protected function storeBrand(request $request){
 
 	    $validator = Validator::make($request->all(), [
@@ -261,7 +273,7 @@ class InventoryController extends Controller
                     'brand_id' => $brand->id,
                     'supplier_id' => $supp,
                 ]);
-                
+
             }
 
     	alert()->success('Successfully Added');
@@ -269,9 +281,54 @@ class InventoryController extends Controller
         return redirect()->route('show_brand_lists');
 
 	}
+
+    protected function updateBrand($id, Request $request)
+	{
+        // dd($request->all());
+        // dd($request->sub_category_id);
+
+		try {
+
+
+        	$brand = Brand::findOrFail($id);
+            // dd($brand);
+   		} catch (\Exception $e) {
+
+        	alert()->error("Brand Not Found!")->persistent("Close!");
+
+            return redirect()->back();
+
+    	}
+
+        $brand->brand_code = $request->brand_code;
+
+        $brand->name = $request->brand_name;
+
+        $brand->category_id = $request->category_id;
+
+
+        $affected = DB::table('brand_sub_category')
+              ->where('brand_id',$brand->id)
+              ->update(['sub_category_id' => $request->subcategory]);
+
+        $brand->save();
+
+        alert()->success('Successfully Updated!');
+
+        return redirect()->route('show_brand_lists');
+	}
+    protected function showBrand(request $request){
+
+
+        $subcategory_id = $request->subcategory_id;
+        $brands= SubCategory::find($subcategory_id)->brands;
+
+	    return response()->json($brands);
+    }
+
     protected function deletebrand(Request $request)
 	{
-       
+
 		$id = $request->brand_id;
 
         $brand = Brand::find($id);
@@ -293,50 +350,221 @@ class InventoryController extends Controller
 
         return response()->json($brand);
 	}
-    protected function updateBrand($id, Request $request)
-	{
-        // dd($request->all());
-        // dd($request->sub_category_id);
-       
-		try {
+    //Brand CRUD End
 
+    //Main WareHouse Product Start
+    public function product_list() {
 
-        	$brand = Brand::findOrFail($id);
-            // dd($brand);
-   		} catch (\Exception $e) {
-
-        	alert()->error("Brand Not Found!")->persistent("Close!");
-
-            return redirect()->back();
-
-    	}
-
-        $brand->brand_code = $request->brand_code;
-
-        $brand->name = $request->brand_name;
-
-        $brand->category_id = $request->category_id;
-
-        
-        $affected = DB::table('brand_sub_category')
-              ->where('brand_id',$brand->id)
-              ->update(['sub_category_id' => $request->subcategory]);
-
-        $brand->save();
-
-        alert()->success('Successfully Updated!');
-
-        return redirect()->route('show_brand_lists');
+		$products = Product::orderBy('id','desc')->get();
+		// dd($products);
+        $items = Item::all();
+        $regionalname = RegionalWarehouse::all();
+        $projects = SaleProject::all();
+		return view('MasterData.product_list', compact('projects','products','items','regionalname'));
 	}
-    protected function showSubCategory(request $request){
+    public function createProduct() {
+
+        $category = Category::all();
+        $subcategory = SubCategory::all();
+        $supplier = Supplier::all();
+        $incoterm = incoterm_type::all();
+
+        $brand = Brand::all();
+		return view('MasterData.create_product',compact('brand','incoterm','supplier','category','subcategory'));
+	}
+    public function store_product(Request $request) {
+		// dd($request->pri_supplier_id);
+		// $extra_units = $request->extra_unit;
+		// dd($request->all());
+        $primary_info = json_decode($request->primary_sup);
+        $secondary_info = json_decode($request->secondary_sup);
+
+        // dd("done_sec");
+        foreach($primary_info as $pri)
+        {
+            $unit_pur_price = (int)$pri->unit_pur_price;
+            // dd($unit_pur_price);
+            $moq_qty = $pri->moq_qty;
+            $moq_price = $pri->moq_price;
+            // $dis_type = $pri->dis_type;
+            // dd((int)$pri->dis_con_type);
+        }
+
+		// $validator = Validator::make($request->all(), [
+		// 	'model_number' => 'required',
+		// 	'name' => 'required',
+		// 	'stock_qty' => 'required',
+		// 	'brand_name' => 'required',
+		// 	'reg_date' => 'required',
+		// 	// 'location' => 'required',
+		// 	'measuring_unit' => 'required',
+		// 	'reorder_quantity' => 'required',
+		// 	'purchase_price' => 'required',
+		// 	'retail_price' => 'required',
+		// 	'wholesale_price' => 'required',
+		// ]);
+
+		// if ($validator->fails()) {
+		// 	alert()->info("Please Fill all Field!");
+		// }
+		if ($request->hasfile('photo')) {
+
+			$photo = $request->file('photo');
+			$name = $photo->getClientOriginalName();
+			$photo->move(public_path() . '/image/', $name);
+			$photo = $name;
+		}
+        else{
+
+			$photo = "logo.jpg";
+        }
 
 
-	    $category_id = $request->category_id;
+		$srn_num = "SRN-" . $request->serial_number;
+		$product = Product::create([
+            'department_id' => $request->department_id,
+            'brand_id' => $request->brand_id,
+		    // 'shelve_id' => $request->shelve_id??null,
+            'instock_preorder' => $request->exist_asset,
+		    'category_id' => $request->category_id??null,
+		    'subcategory_id' => $request->subcategory_id??null,
+			'measuring_unit' => $request->measuring_unit,
+			'name' => $request->name,
+            'stock_qty' => $request->stock_qty,
+            'reorder_qty' => $request->reorder_qty,
+            'primary_supplier_id' => $request->pri_supplier_id,
+            'reg_date' => $request->reg_date,
+			'photo' => $photo,
+			'description' => $request->description,
+			'part_no' => $request->part,
+            'unit_purchase_price' => $unit_pur_price,
+            'moq_price' => $moq_price??null,
+            'moq_qty' => $moq_qty??null,
 
-	    $subcategory = SubCategory::where('category_id', $category_id)->get();
+		]);
+        foreach($primary_info as $pri)
+        {
+            // dd($pri->credit_condition_type);
+            $upp = (int)$pri->unit_pur_price;
+            $comparison = SupplierProductComparison::create([
+                'supplier_id' => $pri->id,
+                'product_id' => $product->id,
+                'primary_flag' => $pri->supplier_flag,
+                'unit_purchase_price' => $upp,
+                'currency_id' => $pri->currency_type??null,
+                'discount_type' => $pri->dis_type??null,
+                'discount_value' => $pri->dis_amt??null,
+                'incoterm_id' => $pri->incoterm??null,
+                'last_purchase_date' => $pri->last_pur_date??null,
+                'delivery_lead_time' => $pri->deli_lead_time??null,
+                'total_purchase_qty' => $pri->initial_pur_qty??null,
+                'total_purchase_amount' => $pri->initial_pur_amt??null,
+                'lead_time_type' => $pri->lead_time_type??null,
+                'discount_condition' => $pri->dis_cond_type??null,
+                'discount_condition_value' => $pri->dis_cond??null,
+                'credit_term_type' => $pri->credit_term_type??null,
+                'credit_term_value' => $pri->credit_term??null,
+                'credit_condition' => $pri->credit_condition_type??null,
+                'credit_condition_value' => $pri->con??null,
+                'moq_price' => $pri->moq_price??null,
+                'moq_qty' => $pri->moq_qty??null,
+                'credit_amount' => $pri->credit_amt??null,
 
-	    return response()->json($subcategory);
+            ]);
+        }
+        foreach($secondary_info as $sec)
+        {
+            // dd($sec->)
+            $secupp = (int)$sec->unit_pur_price;
+            $comparison = SupplierProductComparison::create([
+                'supplier_id' => $sec->id,
+                'product_id' => $product->id,
+                'primary_flag' => $sec->supplier_flag,
+                'unit_purchase_price' => $secupp??null,
+                'currency_id' => $sec->currency_type??null,
+                'discount_type' => $sec->dis_type??null,
+                'discount_value' => $sec->dis_amt??null,
+                'incoterm_id' => $sec->incoterm??null,
+                'last_purchase_date' => $sec->last_pur_date??null,
+                'delivery_lead_time' => $sec->deli_lead_time??null,
+                'total_purchase_qty' => $sec->initial_pur_qty??null,
+                'total_purchase_amount' => $sec->initial_pur_amt??null,
+                'lead_time_type' => $sec->lead_time_type??null,
+                'discount_condition' => $sec->dis_cond_type??null,
+                'discount_condition_value' => $sec->dis_cond??null,
+                'credit_term_type' => $sec->credit_term_type??null,
+                'credit_term_value' => $sec->credit_term??null,
+                'credit_condition' => $sec->credit_condition_type??null,
+                'credit_condition_value' => $sec->con??null,
+                'moq_price' => $sec->moq_price??null,
+                'moq_qty' => $sec->moq_qty??null,
+                'credit_amount' => $sec->credit_amt??null,
+
+            ]);
+        }
+
+		alert()->success("Successfully Added!");
+		return redirect()->back();
+
+	}
+    function show_product_detail($id)
+    {
+        // dd($id);
+        $product = Product::find($id);
+        $sec_supplier = SupplierProductComparison::where('product_id',$id)->where('primary_flag',2)->get();
+        // dd($sec_supplier);
+        return view('MasterData.product_detail',compact('product','sec_supplier'));
     }
+    //Main WareHouse Product End
+
+    //Item CRUD Start
+    public function add_item_product(Request $request)
+	{
+  
+		// dd($request->all());
+		$serial = "SN-".$request->serial_no;
+
+        if($request->warehouse_flag == 2)
+        {
+            $regional_id = $request->regional_id;
+        }
+        else
+        {
+            $regional_id = null;
+        }
+        // dd($regional_id);
+		$item = Item::create([
+			'product_id' => $request->product_id,
+			'serial_number' => $serial,
+			'size' => $request->size,
+			'color' => $request->color,
+			'dimension' => $request->dimension,
+			'hs_code' => $request->hs_code,
+			'other_specification' => $request->other_spec,
+			'warehouse_location' => $request->ware_location,
+            'unit_purchase_price' => $request->unit_price,
+            'purchase_date' => $request->date,
+            'stock_qty' => $request->qty,
+            'warehouse_type' => $request->warehouse_flag,
+            'warehouse_id' => $regional_id
+		]);
+        alert()->success('Successfully Added Item !!');
+		return redirect()->back();
+
+	}
+    //Item CRUD End
+
+
+
+
+
+
+
+
+
+
+
+
     protected function get_product_supplier_comparison(Request $request)
     {
         // dd($request->supplier_id);
@@ -437,14 +665,7 @@ class InventoryController extends Controller
 
         return redirect()->route('show_type_lists');
 	}
-    protected function showBrand(request $request){
 
-
-        $subcategory_id = $request->subcategory_id;
-        $brands= SubCategory::find($subcategory_id)->brands;
-
-	    return response()->json($brands);
-    }
 
     protected function item_list()
     {
