@@ -17,7 +17,7 @@ class CreatePurchaseRequestListsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('purchase_request_id');
             $table->unsignedBigInteger('item_id');
-            $table->integer('stock_qty')
+            $table->integer('stock_qty');
             $table->timestamps();
         });
     }

@@ -40,19 +40,8 @@ Route::group(['middleware' => ['UserAuth']], function () {
 	//Syspexshwe Begin
 
 
-    // Route::get('category_list', 'Web\InventoryController@category_list')->name('category_list');
-    // Route::post('store_category', 'Web\InventoryController@store_category')->name('store_category');
-    // Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
-    // Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('store_subcategory');
-    // Route::get('bank_list', 'Web\InventoryController@bank_list')->name('bank_list');
-    // Route::get('company_information', 'Web\InventoryController@company_information')->name('company_information');
 
-	// Route::post('update_cate','TenderGeneralController@update_category')->name('update_cate');
 
-	Route::post('delete_cate','TenderGeneralController@delete_category')->name('delete_cate');
-
-	Route::post('update_subcate','TenderGeneralController@update_subcategory')->name('update_subcate');
-	Route::post('delete_subcate','TenderGeneralController@delete_subcategory')->name('delete_subcate');
     // Route::get('brand_list', 'TenderGeneralController@brand_list')->name('brand_list');
     Route::post('store_bank', 'TenderGeneralController@store_bank')->name('store_bank');
     Route::post('store_company', 'TenderGeneralController@store_company')->name('store_company');
@@ -543,8 +532,10 @@ return view('example_profile');
 
     //Sub_Category
     Route::get('sub_category_list', 'Web\InventoryController@sub_category_list')->name('sub_category_list');
-    Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('store_subcategory');
+    Route::post('store_subcategory', 'Web\InventoryController@store_subcategory')->name('sub_category_store');
 	Route::post('showSubCategory', 'Web\InventoryController@showSubCategory');
+	Route::post('update_subcate','Web\InventoryController@update_subcategory')->name('sub_category_update');
+	Route::post('delete_subcate','Web\InventoryController@delete_subcategory')->name('delete_subcate');
 
     //Brand
     Route::get('bank_list', 'Web\InventoryController@bank_list')->name('bank_list');
