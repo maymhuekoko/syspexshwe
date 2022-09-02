@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Accounting;
 use App\Item;
 use App\Type;
 use App\Brand;
 use App\Category;
+use App\CompanyInfomation;
 use App\Supplier;
 use App\SubCategory;
 use App\CountingUnit;
@@ -19,6 +21,7 @@ use App\Product;
 use App\RegionalWarehouse;
 use App\SaleProject;
 use App\SupplierProductComparison;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -520,7 +523,7 @@ class InventoryController extends Controller
     //Item CRUD Start
     public function add_item_product(Request $request)
 	{
-  
+
 		// dd($request->all());
 		$serial = "SN-".$request->serial_no;
 
@@ -1270,5 +1273,38 @@ class InventoryController extends Controller
         $items = Item::where('item_name', 'LIKE', "%{$searchquery}%")->Orwhere('item_code', 'LIKE', "%{$searchquery}%")->get();
         return response()->json($items);
 
+    }
+
+    // Company Infomation
+    protected function company_information()
+    {
+        // dd($trans);
+        
+        $com = CompanyInfomation::first();
+        // dd($com->financial_end_date);
+        $now_date = Carbon::now();
+        $now = $now_date->toDateString();
+        $acc = Accounting::all();
+        if($com != null){
+        if($com->financial_end_date < $now){
+            // dd('hello');
+            // dd($acc);
+            foreach($acc as $account){
+                $account1 = Accounting::find($account->id);
+                if($account1->carry_for_work == 0){
+                $account1->opening_balance = 0;
+                $account1->amount = 0;
+                $account1->save();
+                }
+                else if($account1->carry_for_work == 1){
+                    $account1->opening_balance = $account1->amount;
+                    $account1->save();
+                    }
+            }
+        }
+
+         }
+
+        return view('Admin.company_information',compact('com'));
     }
 }

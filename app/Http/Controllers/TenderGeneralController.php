@@ -139,36 +139,7 @@ class TenderGeneralController extends Controller
         // dd($trans);
         return view('Admin.bank_list',compact('account','banks','trans','currency'));
     }
-    protected function company_information()
-    {
-        // dd($trans);
-        $com = CompanyInfomation::first();
-        // dd($com->financial_end_date);
-        $now_date = Carbon::now();
-        $now = $now_date->toDateString();
-        $acc = Accounting::all();
-        if($com != null){
-        if($com->financial_end_date < $now){
-            // dd('hello');
-            // dd($acc);
-            foreach($acc as $account){
-                $account1 = Accounting::find($account->id);
-                if($account1->carry_for_work == 0){
-                $account1->opening_balance = 0;
-                $account1->amount = 0;
-                $account1->save();
-                }
-                else if($account1->carry_for_work == 1){
-                    $account1->opening_balance = $account1->amount;
-                    $account1->save();
-                    }
-            }
-        }
-
-         }
-
-        return view('Admin.company_information',compact('com'));
-    }
+   
     protected function fixed_asset()
     {
         // dd('hello');
@@ -1993,7 +1964,7 @@ class TenderGeneralController extends Controller
 
     function change_project_status($id)
     {
-        
+
 
         $sale_project = SaleProject::find($id);
         if($sale_project->status == 1)
