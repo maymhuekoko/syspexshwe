@@ -34,7 +34,7 @@
                             <tr>
                             <td>{{$i++}}</td>
                                 <td>{{$sub_category->subcategory_code}}</td>
-                                <td>{{$sub_category->category->category_name}}</td>
+                                {{-- <td>{{$sub_category->category->category_name}}</td> --}}
                                 <td>{{$sub_category->name}}</td>
 
                                 <td class="text-center">
